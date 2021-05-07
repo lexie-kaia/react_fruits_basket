@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from 'components/app.module.css';
-import Header from 'components/header/header';
-import Basket from 'components/basket/basket';
-import Footer from 'components/footer/footer';
+import styles from './app.module.css';
+import Header from './header/header';
+import Basket from './basket/basket';
+import Footer from './footer/footer';
 
 function App() {
   return (
