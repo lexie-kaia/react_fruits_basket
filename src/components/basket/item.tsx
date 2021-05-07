@@ -6,10 +6,12 @@ import {
   faPlus,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
+import { Fruit } from 'types/types';
 
-const Fruit = () => (
+const Item = ({ fruit }: { fruit: Fruit }) => (
   <li>
     <span>apple</span>
+    <span>:</span>
     <span>count</span>
     <button>
       <FontAwesomeIcon icon={faPlus} />
@@ -26,4 +28,4 @@ const Fruit = () => (
   </li>
 );
 
-export default Fruit;
+export default Item;
