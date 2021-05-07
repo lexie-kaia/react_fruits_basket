@@ -1,0 +1,14 @@
+.footer {
+  margin-top: 2em;
+  padding-top: 1em;
+  border-top: 1px solid #e6e6e6;
+}
+
+.copy {
+  font-size: 0.875rem;
+  color: #bdbdbd;
+}
+
+.copy a {
+  color: inherit;
+}

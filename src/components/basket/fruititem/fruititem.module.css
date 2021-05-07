@@ -1,0 +1,33 @@
+.item {
+  height: 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5em;
+  /* border: 1px solid red; */
+}
+
+.info {
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  margin-right: 0.5em;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  background: cornflowerblue;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 700;
+  box-shadow: 0px 0px 5px 0 cornflowerblue;
+}

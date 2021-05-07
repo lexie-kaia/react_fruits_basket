@@ -1,6 +1,7 @@
 .container {
-  max-width: 24em;
+  max-width: 20em;
   padding: 2em;
   border-radius: 1em;
   background: white;
+  box-shadow: 5px 5px 20px 0px #dbdbdb;
 }

@@ -1,0 +1,11 @@
+.button {
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  color: #bdbdbd;
+  transition: color 200ms;
+}
+
+.button:hover {
+  color: coral;
+}
