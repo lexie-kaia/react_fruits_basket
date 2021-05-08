@@ -1,7 +1,7 @@
 .container {
-  max-width: 20em;
-  padding: 2em;
-  border-radius: 1em;
+  max-width: 22rem;
+  padding: 2rem;
+  border-radius: 1rem;
   background: white;
   box-shadow: 5px 5px 20px 0px #dbdbdb;
 }

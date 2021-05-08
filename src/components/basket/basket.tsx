@@ -1,18 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
-import { Fruit } from 'types/types';
 import Addform from './addform/addform';
 import Fruititem from './fruititem/fruititem';
 import TotalAndReset from './totalAndReset/totalAndReset';
 
+type Fruit = {
+  id: string;
+  name: string;
+  count: number;
+};
+
 const Basket = () => {
   const [basket, setBasket] = useState<Fruit[]>([
-    { id: uuid(), name: 'apple', count: 0 },
-    { id: uuid(), name: 'banana', count: 0 },
+    { id: uuid(), name: 'Apple', count: 0 },
+    { id: uuid(), name: 'Banana', count: 0 },
   ]);
+  const [totalCount, setTotalCount] = useState<number>(0);
 
-  const onAddClick = (fruitName: string) => {
+  useEffect(() => {
+    setTotalCount(basket.filter((item) => item.count > 0).length);
+  }, [basket]);
+
+  const handleAdd = (fruitName: string) => {
     const updated = [...basket, { id: uuid(), name: fruitName, count: 0 }];
+    setBasket(updated);
+  };
+
+  const handleEdit = (fruit: Fruit, fruitName: string) => {
+    const updated = basket.map((item) => {
+      if (item.id === fruit.id) {
+        return { ...fruit, name: fruitName };
+      }
+      return item;
+    });
     setBasket(updated);
   };
 
@@ -21,12 +41,14 @@ const Basket = () => {
     setBasket(updated);
   };
 
-  const onEditClick = () => {
-    console.log('edit');
-  };
-
-  const onResetClick = () => {
-    console.log('reset');
+  const handleReset = () => {
+    const updated = basket.map((item) => {
+      if (item.count !== 0) {
+        return { ...item, count: 0 };
+      }
+      return item;
+    });
+    setBasket(updated);
   };
 
   const handleIncrement = (fruit: Fruit) => {
@@ -53,7 +75,7 @@ const Basket = () => {
 
   return (
     <div>
-      <Addform onAddClick={onAddClick} />
+      <Addform handleAdd={handleAdd} />
       <ul>
         {basket.map((fruit) => (
           <Fruititem
@@ -61,12 +83,12 @@ const Basket = () => {
             fruit={fruit}
             handleIncrement={handleIncrement}
             handleDecrement={handleDecrement}
-            onEditClick={onEditClick}
+            handleEdit={handleEdit}
             handleDelete={handleDelete}
           />
         ))}
       </ul>
-      <TotalAndReset onResetClick={onResetClick} />
+      <TotalAndReset totalCount={totalCount} handleReset={handleReset} />
     </div>
   );
 };

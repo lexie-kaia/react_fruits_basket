@@ -3,21 +3,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styles from './addform.module.css';
 
-const Addform = ({
-  onAddClick,
-}: {
-  onAddClick: (fruitName: string) => void;
-}) => {
+type Props = {
+  handleAdd: (fruitName: string) => void;
+};
+
+const Addform = ({ handleAdd }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    if (!inputRef.current) return;
-    if (!formRef.current) return;
+    if (inputRef.current == null) return;
+    if (formRef.current == null) return;
 
     event.preventDefault();
     const fruitName = inputRef.current.value;
-    fruitName && onAddClick(fruitName);
+    fruitName && handleAdd(fruitName);
     formRef.current.reset();
   };
 

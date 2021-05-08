@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faMinus,
@@ -6,15 +6,19 @@ import {
   faPlus,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
-import { Fruit } from 'types/types';
 import styles from './fruititem.module.css';
-import Button from '../button/button';
+
+type Fruit = {
+  id: string;
+  name: string;
+  count: number;
+};
 
 type Props = {
   fruit: Fruit;
   handleIncrement: (fruit: Fruit) => void;
   handleDecrement: (fruit: Fruit) => void;
-  onEditClick: () => void;
+  handleEdit: (fruit: Fruit, fruitName: string) => void;
   handleDelete: (fruit: Fruit) => void;
 };
 
@@ -22,9 +26,11 @@ const FruitItem = ({
   fruit,
   handleIncrement,
   handleDecrement,
-  onEditClick,
   handleDelete,
+  handleEdit,
 }: Props) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const onDeleteClick = () => {
     handleDelete(fruit);
   };
@@ -37,28 +43,47 @@ const FruitItem = ({
     handleDecrement(fruit);
   };
 
-  return (
-    <li className={styles.item}>
-      <div className={styles.info}>
-        <span className={styles.name}>{fruit.name}</span>
-        <span className={styles.count}>{fruit.count}</span>
-      </div>
+  const onEditClick = () => {
+    if (!inputRef.current) return;
+    inputRef.current.focus();
+  };
 
-      <div>
-        <Button onClick={onIncrementClick}>
-          <FontAwesomeIcon icon={faPlus} />
-        </Button>
-        <Button onClick={onDecrementClick}>
-          <FontAwesomeIcon icon={faMinus} />
-        </Button>
-        <Button onClick={onEditClick}>
-          <FontAwesomeIcon icon={faPen} />
-        </Button>
-        <Button onClick={onDeleteClick}>
-          <FontAwesomeIcon icon={faTrash} />
-        </Button>
-      </div>
-    </li>
+  const onChange = (event: FormEvent<HTMLInputElement>) => {
+    if (event.currentTarget == null) return;
+    const inputValue = event.currentTarget.value;
+    handleEdit(fruit, inputValue);
+  };
+
+  return (
+    <>
+      <li className={styles.item}>
+        <div className={styles.nameContainer}>
+          <input
+            ref={inputRef}
+            className={styles.name}
+            type="text"
+            value={fruit.name}
+            onChange={onChange}
+          />
+        </div>
+
+        <div className={styles.restContainer}>
+          <span className={styles.count}>{fruit.count}</span>
+          <button className={styles.button} onClick={onIncrementClick}>
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+          <button className={styles.button} onClick={onDecrementClick}>
+            <FontAwesomeIcon icon={faMinus} />
+          </button>
+          <button className={styles.button} onClick={onEditClick}>
+            <FontAwesomeIcon icon={faPen} />
+          </button>
+          <button className={styles.button} onClick={onDeleteClick}>
+            <FontAwesomeIcon icon={faTrash} />
+          </button>
+        </div>
+      </li>
+    </>
   );
 };
 
